@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">
+        Hallo {{ user.name|e }}! Kaffee?
+    </h2>
+    <div class="row">
+        {% for c in coffees_dict.values() %}
+        <div class="col text-center">
+            <a href="{{ url_for('coffee_drink', username=user.name, coffee=c.name) }}">
+                <button class="btn" type="button">{{ "{:s}, {:.2f}€".format(c.name, c.price) }}</button>
+            </a><br />
+            <img class="coffee-qr" src="{{ url_for('coffee_drink_qr', username=user.name, coffee=c.name) }}" />
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="card">
+{% with bill = user.current_bill %}
+    <h3 class="card-title">Aktuelle Rechnung ({{ bill.id }})</h3>
+    {% include "coffee/bill_base.html" %}
+    {% if bill.items|length > 0 %}
+        <a href="{{ url_for('coffee_bill_pay', username=user.name, bill_id=bill.id) }}">
+            <button class="btn btn-primary">Abrechnen</button>
+        </a>
+    {% endif %}
+{% endwith %}
+</div>
+
+{% if user.bills_payed|length > 0 %}
+<div class="content">
+    <h2 class="content-title">Bezahlte Rechnungen ({{ "{:.2f}€".format(bill_payed_sum) }})</h2>
+    <ul>
+        {% for bill in user.bills_payed.values() %}
+        <li>
+            <a href="{{ url_for('coffee_bill', username=user.name, bill_id=bill.id) }}">
+                Rechnung {{ bill.id }}, {{ bill.transaction_time.strftime("%d.%m.%Y") }}, {{ "{:.2f}€".format(bill.sum) }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

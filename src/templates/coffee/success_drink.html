@@ -1,0 +1,15 @@
+{% extends "base/success.html" %}
+
+{% block extra %}
+<br />
+<div class="row">
+    <div class="col">
+        <a href="{{ url_for('coffee_user', username=user.name) }}" class="text-decoration-none">
+            <button type="button" class="btn btn-block">Zurück zur Übersicht</button>
+        </a>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-danger btn-block" disabled>Rückgängig (coming soon)</button>
+    </div>
+</div>
+{% endblock %}

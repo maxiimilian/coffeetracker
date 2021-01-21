@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block title %}CoffeeTracker{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">Kaffeetrinker</h2>
+    <ul>
+        {% for username in usernames %}
+        <li><a href="{{ url_for('coffee_user', username=username) }}">{{ username }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="content">
+    <h2 class="content-title">Splitwise</h2>
+    <ul>
+        <li><a href="{{ url_for('auth_splitwise') }}">Authenticate</a></li>
+        <li><a href="{{ url_for('auth_splitwise_info') }}">Info about logged in account</a></li>
+    </ul>
+</div>
+{% endblock %}

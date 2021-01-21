@@ -1,0 +1,23 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">Splitwise Info</h2>
+    <p>
+        Authenticated Splitwise User: {{ s_user.first_name }} {{ s_user.last_name }}
+        (<a href="{{ url_for('auth_splitwise_logout') }}">Logout</a>)
+    </p>
+    <p>Friends (can be used for billing):</p>
+    <ul>
+        {% for f in s_friends %}
+        {% if f.id in coffee_users %}
+        <a href="{{ url_for('coffee_user', username=coffee_users[f.id].name) }}">
+            <li>{{ f.last_name }}, {{ f.first_name }}: {{ f.id }} <strong>(CoffeeUser)</strong></li>
+        </a>
+        {% else %}
+        <li>{{ f.last_name }}, {{ f.first_name }}: {{ f.id }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

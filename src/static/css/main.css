@@ -1,0 +1,9 @@
+/* Invert coffee qr codes in dark mode */
+.dark-mode .coffee-qr {
+    filter: invert(.9);
+}
+
+/* Strike out deleted elements on bill */
+tr.strikeout td {
+    text-decoration: line-through;
+}

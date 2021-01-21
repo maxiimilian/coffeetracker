@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">
+        Rechnung {{ bill.id }}
+    </h2>
+    {% include "coffee/bill_base.html" %}
+    {% if not bill.payed %}
+    <a href="pay">
+        <button class="btn btn-primary">Abrechnen</button>
+    </a>
+    {% else %}
+    <span>
+        <i class="fa fa-check-circle text-success"></i>
+        Bezahlt am {{ bill.transaction_time.strftime("%d.%m.%Y") }} ({{ bill.transaction_id }}).
+    </span>
+    {% endif %}
+</div>
+{% endblock %}
