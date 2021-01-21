@@ -236,5 +236,7 @@ dmypy.json
 # Don't add userdata
 data/splitwise.ini
 data/users.ini
+data/coffee/*.ini
+data_bak*
 !src/test/data/*
 !src/test/data/*/*
