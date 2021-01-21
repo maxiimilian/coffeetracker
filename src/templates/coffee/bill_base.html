@@ -3,13 +3,14 @@
         <th>Datum</th>
         <th>Kaffeesorte</th>
         <th>Preis</th>
-        <th></th>
+        {%  if not bill.payed %}<th></th>{% endif %}
     </tr>
     {% for id, item in bill.items.items() %}
     <tr class="{% if item.deleted %}text-muted strikeout{% endif %}">
         <td>{{ item.timestamp.strftime("%d.%m.%Y %H:%M") }}</td>
         <td>{{ item.coffee.name }}</td>
         <td class="text-right">{{ "{:.2f}€".format(item.coffee.price) }}</td>
+        {%  if not bill.payed %}
         <td>
             {% if item.deleted %}
                 <a href="{{ url_for('coffee_bill_restore_item', username=user.name, bill_id=bill.id, item_id=id) }}" class="text-reset text-decoration-none">
@@ -21,12 +22,13 @@
                 </a>
             {% endif %}
         </td>
+        {% endif %}
     </tr>
     {% endfor %}
     <tr>
         <td></td>
         <td></td>
         <td class="text-right"><strong>{{ "{:.2f}€".format(bill.sum) }}</strong></td>
-        <td></td>
+        {%  if not bill.payed %}<td></td>{% endif %}
     </tr>
 </table>

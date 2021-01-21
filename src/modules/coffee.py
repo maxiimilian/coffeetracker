@@ -219,11 +219,17 @@ class CoffeeBill:
 
     def delete(self, item_id: int):
         """ Delete (disable) coffee with given id. """
+        if self.payed:
+            raise RuntimeError("Bill was already payed! No item can be deleted!")
+
         self._items[item_id].deleted = True
         self._save()
 
     def restore(self, item_id: int):
         """ Restore (enable) coffee with given id. """
+        if self.payed:
+            raise RuntimeError("Bill was already payed! No item can be restored!")
+
         self._items[item_id].deleted = False
         self._save()
 

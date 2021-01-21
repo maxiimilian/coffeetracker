@@ -129,6 +129,22 @@ class CoffeeBillTests(TestCase):
             [True, False]
         )
 
+    def test_delete_restore_payed(self):
+        """ Delete and restore on closed bills should raise an error """
+        self.bill.add(coffees[0])
+        self.bill.add(coffees[0])
+        self.bill.delete(0)
+        self.bill.pay("closed")
+        self.assertTrue(self.bill.payed)
+
+        # Now try to delete something from the list
+        with self.assertRaises(RuntimeError):
+            self.bill.delete(1)
+
+        # Try to restore deleted item
+        with self.assertRaises(RuntimeError):
+            self.bill.restore(0)
+
     def test_sum(self):
         self.assertEqual(self.bill.sum, 0)
 

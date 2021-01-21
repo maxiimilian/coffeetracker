@@ -87,7 +87,7 @@ def coffee_bill(username, bill_id):
     if bill is None:
         return render_error(404, f"Bill {bill_id} not found!")
 
-    return render_template('coffee/bill.html', bill=bill)
+    return render_template('coffee/bill.html', bill=bill, user=user)
 
 
 @app.route('/user/<string:username>/bill/<string:bill_id>/delete/<int:item_id>')
